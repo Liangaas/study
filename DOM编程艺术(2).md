@@ -155,4 +155,3 @@
 
        ps.ie9只能获取currentStyle
 
-![](/Users/liangyihan/Desktop/屏幕快照 2018-06-27 上午1.09.20.png)
