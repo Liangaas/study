@@ -1,0 +1,141 @@
+# DOM编程艺术（4）--前端开发笔记 --网易微专业
+
+1. 多媒体和图形编程
+
+   多媒体 
+
+   ```
+   <audio src ="music.mp3"></audio>
+   //兼容用法
+   <audio>
+    <source src= "music.mp3" type= "audio/mpeg">
+    <source src= "music.wav" type= "audio/x-wav">
+    <source src= "music.ogg" type= "audio/ogg">
+   </audio>
+   <video src = "movie.mov" width=320 height=240></video>
+   <video>
+    <source src = "movie.webm" type = "video/webm;codecs ='vp8,vorbis'">
+    <source src = "movie.mp4" type = "video/mp4;codecs ='avc1.42E01E,mp4a.40.2'">
+   </video> 
+   ```
+
+   多媒体格式兼容性
+
+   音频：http://en.wikipedia.org/wiki/HTML5_Audio#Supported_audio_coding_formats
+
+   视频：http://en.wikipedia.org/wiki/HTML5_video#Browser_support
+
+   ```
+   var a = new Audio();
+   a.canPlayType('audio/nav');//支持 “maybe” “probably”，不支持 ”“
+   ```
+
+   | 属性     | 是否必须 | 默认值 | 备注                                                         |
+   | -------- | -------- | ------ | ------------------------------------------------------------ |
+   | src      | 是       |        | 音频/视频文件的URL                                           |
+   | controls | 否       | false  | 向用户显示控件                                               |
+   | autoplay | 否       | false  | 音频就绪后马上播放，自动播放                                 |
+   | preload  | 否       | none   | 可取值为“none”、“metadata”、“auto”。如果音频在页面加载进行加载，并预备播放，如果使用了“autoplay”，则忽略属性。 |
+   | loop     | 否       | false  | 每当音频结束重新开始播放                                     |
+
+   控制多媒体播放
+
+   * load() 加载媒体内容
+   * play（）开始播放
+   * pause（）暂停播放
+   * playbackRate 播放速度
+   * currentTime 播放进度
+   * volume 音量
+   * muted 静音
+
+   查询多媒体状态
+
+   * paused 暂停
+   * seeking 旋转
+   * ended 播放完成
+   * duration 媒体时长
+   * initialTime 媒体开始时间
+
+   多媒体相关事件
+
+    http://www.w3.org/wiki/HTML/Elements/audio#Media_Events
+
+   * loadstart 开始请求媒体内容
+   * loadmetadata 媒体元数据已经加载完成，元数据指的是时长、编码格式..
+   * canplay 加载了一些内容，可以开始播放
+   * play 调用play（），或设置了autoplay
+   * waiting 缓冲数据不够，播放暂停
+   * playing 正在播放
+
+   web audio API
+
+   W3C官方定义：http://webaudio.github.io/web-audio-api/
+   mozilla官方教程：https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API
+   第三方教程：http://www.html5rocks.com/en/tutorials/webaudio/intro/,http://webaudioapi.com/
+
+    图形编程
+
+   ```
+   <canvas id = "tutorial" width="300" height="150"></canvas>
+   ```
+
+   渲染上下文
+
+   ```
+   var canvas = document.getElementById('tutorial');
+   var ctx = canvas.getContext('2d');
+   ```
+
+   globalCompositeOperation 全局的组合操作
+
+   ```
+   ctx.globalCompositeOperation  = 'destination-over';
+   ```
+
+   | globalCompositeOperation |                |                 |                  |
+   | ------------------------ | -------------- | --------------- | ---------------- |
+   | source-over              | source-in      | source-out      | source-atop      |
+   | destination-over         | destination-in | destination-out | destination-atop |
+   | lighter                  | darker         | copy            | xor              |
+
+   例子：用canvas实现一个月亮绕着太阳转的动画
+
+   ```js
+   var sun = new Image();
+   var moon = new Image();
+   var earth = new Image();
+   function init(){
+       sun.src = 'Canvas_sun.png';
+       moon.src = 'Canvas_moon.png';
+       window.requestAnimationFrame(draw);
+   }
+   function draw(){
+       var ctx = document.getElementById('canvas').getContext('2d');
+       ctx.globalCompositeOperation = 'destination-over';
+       ctx.clearRect(0,0,300,300);//clear canvas
+       ctx.fillStyle = 'rega(0,0,0,0.4)';
+       ctx.stokeStyle = 'rgba(0,153,255,0.4)';
+       //保存状态
+       ctx.save();
+       ctx.translate(150,150);
+       
+       var time = new Date();
+       ctx.rotate(((2*Math.PI)/60)*time.getSeconds() +((2*Math.PI)/6000)*time.getMilliseconds());
+       ctx.translate(0,28.5);
+       ctx.drawImage(moon,-3.5,-3.5);
+       //恢复状态
+       ctx.restore();
+       
+       ctx.beginPath();
+       ctx.arc(150,150,105,0,Math.PI*2,false);
+       ctx.stroke();
+       
+       ctx.drawImage(sun,0,0,300.300);
+       
+       window.requestAnimationFrame(draw);
+       
+   }
+   init();
+   ```
+
+   mozilla官方教程：https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API
