@@ -28,7 +28,7 @@
 
         一棵DOM树
 
-     ​      window -> document -><html>-><body>-><div>-><p>-><a>
+     ​      window -> document -> <html> -> <body> -> <div> -> <p> -> <a>
 
      ​	当点击a标签，就会产生DOM click 事件
 
