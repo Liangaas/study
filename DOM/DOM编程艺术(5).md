@@ -1,0 +1,75 @@
+DOM编程艺术（5）--前端开发笔记 --网易微专业
+
+1. BOM（Browser Object Module)：浏览器窗口对象的一组api
+
+   * 属性
+
+     | 属性名    | 描述             |
+     | --------- | ---------------- |
+     | navigator | 浏览器信息       |
+     | location  | 浏览器定位和导航 |
+     | history   | 窗口浏览器历史   |
+     | screen    | 屏幕信息         |
+
+     * navigator 
+
+       -- platform 运行的平台 e.g “Win32”
+
+       -- userAgent 浏览器的信息
+
+     * location 
+
+       | url      | http://www.163.com:8080/index.html?r=admin&lang-zh-CN#news |
+       | -------- | ---------------------------------------------------------- |
+       | protocol | http                                                       |
+       | host     | www.163.com:8080                                           |
+       | hostname | www.163.com                                                |
+       | port     | 8080                                                       |
+       | pathname | /index.html                                                |
+       | search   | r=admin&lang-zh-CN                                         |
+       | hash     | news                                                       |
+
+       方法：
+
+       * assign(url) 载入新的url，记录历史
+       * replace(url) 在入心的url，不记录历史
+       * reload() 重载当前页
+
+     * history
+
+       属性：
+
+       * length
+       * state
+
+       方法：
+
+       * back()
+       * forward
+       * go()
+
+     * screen
+
+       availHeight 显示的区域的高度
+
+       height：浏览器的高度
+
+   * 方法
+
+     | 方法名                     | 描述               |
+     | -------------------------- | ------------------ |
+     | alert(),confirm(),prompt() | 三种对话框         |
+     | setTimeout(),setInterval() | 计时器             |
+     | open(),close()             | 开新窗口，关闭窗口 |
+
+   * 事件
+
+     | 属性名       | 描述                                             |
+     | ------------ | ------------------------------------------------ |
+     | load         | 文档和所有图片加载完毕时                         |
+     | unload       | 离开当前文档时                                   |
+     | beforeunload | 和unload类似，但它提供询问用户是否确定离开的机会 |
+     | resize       | 拖动改变浏览器窗口的大小时                       |
+     | scroll       | 拖动滚动浏览器时                                 |
+
+     
